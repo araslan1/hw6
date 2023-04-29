@@ -24,6 +24,7 @@ int main()
         ss << "hi" << i;
         ht.insert({ss.str(), i});
     }
+    // ht.reportAll(std::cout); 
     if( ht.find("hi1") != nullptr ){
         cout << "Found hi1" << endl;
         ht["hi1"] += 1;

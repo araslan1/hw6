@@ -15,7 +15,7 @@ std::vector<std::vector<char> > genBoard(unsigned int n, int seed)
 {
 	//random number generator
 	std::mt19937 r(seed);
-
+ 
 	//scrabble letter frequencies
 	//A-9, B-2, C-2, D-4, E-12, F-2, G-3, H-2, I-9, J-1, K-1, L-4, M-2, 
 	//N-6, O-8, P-2, Q-1, R-6, S-4, T-6, U-4, V-2, W-2, X-1, Y-2, Z-1
@@ -87,7 +87,6 @@ std::set<std::string> boggle(const std::set<std::string>& dict, const std::set<s
 			boggleHelper(dict, prefix, board, "", result, i, j, 1, 1);
 		}
 	}
-	
 	return result;
 }
 
@@ -95,5 +94,60 @@ bool boggleHelper(const std::set<std::string>& dict, const std::set<std::string>
 								   std::string word, std::set<std::string>& result, unsigned int r, unsigned int c, int dr, int dc)
 {
 //add your solution here!
+if (word == "PS"){
+  int z = 0; 
+}
+unsigned int n = board.size();
+bool boggle = false; 
+if (r >= n || c >= n){
+	    return boggle; 
+}
+if (dr == 1 && dc == 0){
+	//left to right
+	word += board[r][c];
+  
+  
+	c = c + 1; 
+	boggle = boggleHelper(dict, prefix, board, word, result, r, c, dr, dc);
+  if (dict.find(word) != dict.end() && boggle == false){
+      result.insert(word); 
+      return true; 
+  }
+  if (prefix.find(word) == prefix.end()){
+    return false; 
+  }
+  word.pop_back(); 
+}else if (dr == 0 && dc ==1){
+	//down
+	word += board[r][c];
+  
 
+	r = r + 1; 
+	boggle = boggleHelper(dict, prefix, board, word, result, r, c, dr, dc);
+  if (dict.find(word) != dict.end() && boggle == false){
+    result.insert(word); 
+    return true; 
+  }
+  if (prefix.find(word) == prefix.end()){
+    return false; 
+  }
+  word.pop_back(); 
+}else if (dr == 1 && dc == 1){
+	//diagonal
+	word += board[r][c];
+  
+  
+  r = r + 1; 
+	c = c + 1; 
+	boggle = boggleHelper(dict, prefix, board, word, result, r, c, dr, dc);
+  if (dict.find(word) != dict.end() && boggle == false){
+    result.insert(word); 
+    return true; 
+  }
+  if (prefix.find(word) == prefix.end()){
+    return false; 
+  }
+  word.pop_back(); 
+}
+return boggle;
 }
